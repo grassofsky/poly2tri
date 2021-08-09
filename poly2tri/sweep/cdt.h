@@ -48,6 +48,8 @@ class CDT
 {
 public:
 
+  CDT(const std::vector<Point*>& points, const std::vector<Edge*>& constraintEdges);
+
   /**
    * Constructor - add polyline with non repeating points
    *

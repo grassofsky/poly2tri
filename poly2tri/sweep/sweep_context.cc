@@ -34,13 +34,26 @@
 
 namespace p2t {
 
+SweepContext::SweepContext(const std::vector<Point*>& points, const std::vector<Edge*>& constraintEdges) : points_(points),
+  front_(nullptr),
+  head_(nullptr),
+  tail_(nullptr),
+  af_head_(nullptr),
+  af_middle_(nullptr),
+  af_tail_(nullptr),
+  edge_list(constraintEdges),
+  createEdgeInternal_(false)
+{
+}
+
 SweepContext::SweepContext(const std::vector<Point*>& polyline) : points_(polyline),
   front_(nullptr),
   head_(nullptr),
   tail_(nullptr),
   af_head_(nullptr),
   af_middle_(nullptr),
-  af_tail_(nullptr)
+  af_tail_(nullptr),
+  createEdgeInternal_(true)
 {
   InitEdges(points_);
 }
@@ -182,6 +195,16 @@ void SweepContext::MeshClean(Triangle& triangle)
   }
 }
 
+void SweepContext::ClearVirtualTriangles()
+{
+  triangles_.clear();
+  for (auto iter = map_.begin(); iter != map_.end(); ++iter) {
+    if (!(*iter)->Contains(head_) && !(*iter)->Contains(tail_)) {
+      triangles_.push_back(*iter);
+    }
+  }
+}
+
 SweepContext::~SweepContext()
 {
 
@@ -201,10 +224,12 @@ SweepContext::~SweepContext()
         delete ptr;
     }
 
-     for(unsigned int i = 0; i < edge_list.size(); i++) {
-        delete edge_list[i];
+    if (createEdgeInternal_)
+    {
+      for(unsigned int i = 0; i < edge_list.size(); i++) {
+          delete edge_list[i];
+      }
     }
-
 }
 
 } // namespace p2t

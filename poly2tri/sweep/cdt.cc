@@ -32,6 +32,12 @@
 
 namespace p2t {
 
+CDT::CDT(const std::vector<Point*>& points, const std::vector<Edge*>& constraintEdges)
+{
+  sweep_context_ = new SweepContext(points, constraintEdges);
+  sweep_ = new Sweep;
+}
+
 CDT::CDT(const std::vector<Point*>& polyline)
 {
   sweep_context_ = new SweepContext(polyline);

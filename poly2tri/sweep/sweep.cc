@@ -46,7 +46,7 @@ void Sweep::Triangulate(SweepContext& tcx)
   // Sweep points; build mesh
   SweepPoints(tcx);
   // Clean up
-  FinalizationPolygon(tcx);
+  ClearVirtualTriangles(tcx);
 }
 
 void Sweep::SweepPoints(SweepContext& tcx)
@@ -73,6 +73,11 @@ void Sweep::FinalizationPolygon(SweepContext& tcx)
   if (t) {
     tcx.MeshClean(*t);
   }
+}
+
+void Sweep::ClearVirtualTriangles(SweepContext& tcx)
+{
+  tcx.ClearVirtualTriangles();
 }
 
 Node& Sweep::PointEvent(SweepContext& tcx, Point& point)

@@ -33,7 +33,7 @@
  * Zalik, B.(2008)'Sweep-line algorithm for constrained Delaunay triangulation',
  * International Journal of Geographical Information Science
  *
- * "FlipScan" Constrained Edge Algorithm invented by Thomas Åhlén, thahlen@gmail.com
+ * "FlipScan" Constrained Edge Algorithm invented by Thomas ï¿½hlï¿½n, thahlen@gmail.com
  */
 
 #ifndef SWEEP_H
@@ -275,6 +275,8 @@ private:
   void FlipScanEdgeEvent(SweepContext& tcx, Point& ep, Point& eq, Triangle& flip_triangle, Triangle& t, Point& p);
 
   void FinalizationPolygon(SweepContext& tcx);
+
+  void ClearVirtualTriangles(SweepContext& tcx);
 
   std::vector<Node*> nodes_;
 

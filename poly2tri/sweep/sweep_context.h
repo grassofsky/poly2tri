@@ -52,6 +52,7 @@ class SweepContext {
 public:
 
 /// Constructor
+SweepContext(const std::vector<Point*>& points, const std::vector<Edge*>& constraintEdges);
 SweepContext(const std::vector<Point*>& polyline);
 /// Destructor
 ~SweepContext();
@@ -90,6 +91,8 @@ void AddPoint(Point* point);
 AdvancingFront* front() const;
 
 void MeshClean(Triangle& triangle);
+
+void ClearVirtualTriangles();
 
 std::vector<Triangle*> &GetTriangles();
 std::list<Triangle*> &GetMap();
@@ -130,6 +133,8 @@ Basin basin;
 EdgeEvent edge_event;
 
 private:
+
+bool createEdgeInternal_;
 
 friend class Sweep;
 
